@@ -1,11 +1,11 @@
 variable "region" {
-  type    = string
-  default = "ap-south-1"
+    description = "The region of your EKS cluster"
+    type    = string
 }
 
 variable "instance_type" {
+    description = "The instance type of EC2 server"
   type    = string
-  default = "t2.micro"
 }
 
 variable "vpc_cidr" {
