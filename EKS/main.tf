@@ -69,3 +69,33 @@ module "eks" {
     Terraform   = "true"
   }
 }
+
+data "aws_iam_user" "jan_tyminski" {
+  user_name = "tf-user"
+}
+
+resource "aws_eks_access_entry" "jan_tyminski" {
+  cluster_name  = module.eks.cluster_name
+  principal_arn = data.aws_iam_user.jan_tyminski.arn
+  type          = "STANDARD"
+}
+
+resource "aws_eks_access_policy_association" "jan_tyminski_AmazonEKSAdminPolicy" {
+  cluster_name  = module.eks.cluster_name
+  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSAdminPolicy"
+  principal_arn = aws_eks_access_entry.jan_tyminski.principal_arn
+
+  access_scope {
+    type = "cluster"
+  }
+}
+
+resource "aws_eks_access_policy_association" "jan_tyminski_AmazonEKSClusterAdminPolicy" {
+  cluster_name  = module.eks.cluster_name
+  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+  principal_arn = aws_eks_access_entry.jan_tyminski.principal_arn
+
+  access_scope {
+    type = "cluster"
+  }
+}

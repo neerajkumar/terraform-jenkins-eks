@@ -1,11 +1,11 @@
 variable "region" {
-    description = "The region of your EKS cluster"
-    type    = string
+  description = "The region of your EKS cluster"
+  type        = string
 }
 
 variable "instance_type" {
-    description = "The instance type of EC2 server"
-  type    = string
+  description = "The instance type of EC2 server"
+  type        = string
 }
 
 variable "vpc_cidr" {
